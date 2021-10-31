@@ -1,0 +1,68 @@
+import heapq
+import os
+
+def adicionaAresta(arvore, numAresta, numVertice):
+    for i in range(numAresta):   #ler as arestas do grafo
+        print(f'-=-=-=- Adicione a aresta %i -=-=-=-' %i)
+        
+        while True: #verifica se a origem e destino sao validos
+            origem = int(input('Origem: '))   
+            destino = int(input('Destino: '))
+
+            if origem >=0 and origem <numVertice:
+                if destino >=0 and destino <numVertice:
+                    break
+                else:
+                    print('\nDestino inválido! Digite novamente')
+            else:
+                    print('\nOrigem inválido! Digite novamente')
+
+        peso = int(input('Peso: '))
+        print('-=' *30) 
+        heapq.heappush(arvore, (peso, origem, destino))  #coloca as aresta na minha arvore
+        
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+def iniConjuntos(numVertice):
+    for i in range (numVertice):
+        conjuntoVertice[i].append(i)   #cada conjunto[i] e inicializado com [i]
+        conjunto.append(i)
+
+def kruskal(numVertice, arvore, conjunto, conjuntoVertice):
+    cont = 0
+    caminho = 0
+    
+    while cont < numVertice-1:
+        peso, origem, destino = heapq.heappop(arvore) #remove a proxima aresta da arvore
+        if conjunto[origem] != conjunto[destino]: #se as arestas unem arvores diferentes
+            caminho = caminho + peso
+            x = conjunto[origem]    
+            y = conjunto[destino]   
+            if y <- x:
+                x, y = y, x
+            
+            for i in conjuntoVertice[y]:  
+                conjunto[i] = x
+
+            conjuntoVertice[x].extend(conjuntoVertice[y]) #unir conjuntoVertice[x] e conjuntoVertice[y]
+            conjuntoVertice[y] = []
+            cont = cont + 1 
+    
+    print('-=' *30) 
+    print("\nMENOR CAMINHO PERCORRIDO: %d\n" %caminho)    
+    print('-=' *30) 
+
+print('-=' *30) 
+numVertice = int(input('Digite a quantidade de vertices: '))   
+numAresta = int(input('Digite a quantidade de arestas: '))
+print('-=' *30) 
+os.system('cls' if os.name == 'nt' else 'clear')     
+
+arvore = [] #Cria minha arvore
+conjuntoVertice = [[]* numVertice for i in range (numVertice)]  #cria um conjunto para cada vertice 
+conjunto = [] #essa lista é um conjunto ao qual o vertice pertence
+
+adicionaAresta(arvore, numAresta, numVertice)
+iniConjuntos(numVertice)
+kruskal(numVertice, arvore, conjunto, conjuntoVertice)
+
