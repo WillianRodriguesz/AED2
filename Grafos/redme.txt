@@ -9,5 +9,5 @@ Fazer a leitura dos pesos das arestas de cada vértice
 
 Considerar sempre vértices positivos
 
-Mostrar os dados armazenados
+Mostrar os dados armazenados.
 
