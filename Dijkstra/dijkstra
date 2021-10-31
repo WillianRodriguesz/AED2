@@ -1,0 +1,127 @@
+import os
+import math
+
+def kruskal(matriz, distancia, caminho):
+    j=0
+    i=0
+    for n in matriz:
+        for p in n:
+            if j == 0: #primeira passada armazenando a distancia
+                if (p != -1) & (p != 0): #percorre a matriz para ver se há aresta entre os vertices
+                    distancia[i] = p #se tiver aresta na primeira passada, ele armazena o peso no meu vetor distancia[]
+                    caminho[i] = j #arnazena o pai do vertice
+            elif (p != -1) & (p != 0): #caso n seja a primeira passada
+                if (distancia[j] + p) < distancia[i]: #verifica se o peso é menor que a distancia ja encontrada
+                    distancia[i] = (distancia[j] + p) #caso seja ele substitui
+                    caminho[i] = j #arnazena o pai do vertice do menor peso
+            i+=1
+        i=0
+        j+=1
+
+def criaTrajeto(distancia, caminho, tamanho): #gera meu vetor distancia e meu vetor caminho
+    for i in range (tamanho):
+        distancia.append(math.inf)
+        caminho.append(-1)
+
+def criaMatriz(matriz, tamanho):
+    for i in range (tamanho):
+        linha = [] 
+        for j in range (tamanho):
+            if i == j:
+                linha += [0] #coloca 0 se origem = destino como peso
+            else:
+                linha += [-1] ## -1 equivale a infinito
+        matriz += [linha]
+    print('\n')
+  
+def addPeso (matriz, tamanho):
+    for i in range(tamanho):
+                print('posicao [%i]' %i)
+    
+    while True:
+        while True:
+            print('\n==== Digite os pesos de acordo com a posição dos vertices ====\n')
+            linha = int(input('\tORIGEM: '))
+            coluna = int(input('\tDESTINO: '))
+            
+            if linha >= 0 and linha < tamanho:
+                if coluna >= 0 and coluna < tamanho:
+                    peso = int(input('\tPESO: ' ))
+                    matriz [linha][coluna] = peso
+                    break
+            else: 
+                print('\n\tLinha ou coluna invalido!')
+        escolha = int(input('\nDeseja adicionar mais um peso? SIM [1] NAO [0]: '))
+       
+        if escolha == 0:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            break
+
+def imprimirCaminho(caminho, distancia):
+    aux = []
+    
+    while True:
+        print("Digite o vertice que deseja imprimir o menor caminho a partir da origem do vertice [0]")
+        while True:
+            for i in range (len(caminho)):
+                print('Vertice [%i]' %i)
+    
+            destino = (int(input('Digite o vertice:')))
+
+            if destino > len(caminho) or destino == 0:
+                print('\n -=-=-=-= DESTINO INVALIDO, DIGITE OUTRO -=-=-=-=-=-=')
+                if (destino ==0):
+                    print("Destino final não pode ser a origem")
+                else: 
+                    print("Vertice de desisto nao existe")
+
+            else:
+                break
+
+        aux.append(destino)  #armazena o destino (vertice) na primeira posicao do meu vetor aux
+        i=0
+        while aux[i] !=0: #verifica se meu vetor ja chegou na origem
+            aux.append(caminho[aux[i]]) #pega a primeira posicao do aux e armazena o pai do vertice dele que esta no vetor caminho
+            i=i+1
+
+        aux.reverse() #inverte a posição do vetor
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        print('\n\n-=-=-=- trajeto percorrido -=-=-=-')
+        print(aux)
+        print('menor distancia: %d' % (distancia[destino]))
+        print('\n Deseja percorrer outro caminho? \n\tNao [0]  ||  Sim [1]')
+        escolha = int(input('\tDigite: '))
+
+        aux.clear() #limpa o meu vetor para a proxima iteração
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if escolha == 0:
+            break
+
+def imprimeDistancia(distancia, tamanho):
+    print('\n -=-=-=-=-=-=-=- MENOR DISTANCIA PERCORRIDA -=-=-=-=-=-=-=-\n' )
+    for i in range (tamanho):
+        print(f'vertice 0 até o vertice %i - menor distancia percorrida -> {distancia[i]}' %i)
+    print('\n')
+    print('-=' *37)
+
+while True:
+    tamanho = int(input('\n\nDigite a quantidade de vertices: '))
+    if tamanho > 1 & tamanho < 20:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        break
+    else:
+        print('\n-=-=-=-=- Digite apenas valores entre 1 ~ 20 -=-=-=-=-')
+
+matriz = []
+distancia = []
+caminho = []
+
+criaMatriz(matriz, tamanho)
+
+criaTrajeto(distancia, caminho, tamanho)
+addPeso(matriz, tamanho)
+
+kruskal(matriz, distancia, caminho)
+#imprimeDistancia(distancia, tamanho)
+imprimirCaminho(caminho, distancia)
