@@ -1,5 +1,5 @@
 # Algoritmos de Dijkstra, Kruskal e Representação de Grafo em Memória
-Este repositório contém um programa em Python que implementa os algoritmos de Dijkstra e Kruskal, além de fornecer uma representação em memória de um grafo. O programa permite a entrada de vértices e pesos das arestas, e oferece funcionalidades para mostrar os dados armazenados.
+Este repositório contém um programa em Python que implementa os algoritmos de Dijkstra e Kruskal desenvolvidos na cadeira de Algoritmos e Estrutura de Dados 2, além de fornecer uma representação em memória de um grafo. O programa permite a entrada de vértices e pesos das arestas, e oferece funcionalidades para mostrar os dados armazenados.
 
 ## 1.Algoritmo de Kruskal
 O algoritmo de Kruskal é usado para encontrar a árvore geradora mínima de um grafo ponderado não direcionado.
